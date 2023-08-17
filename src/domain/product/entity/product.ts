@@ -29,14 +29,25 @@ export default class Product extends Entity implements ProductInterface  {
   changeName(name: string): void {
     this._name = name;
     this.validate();
+
+    if (this.notification.hasErrors()) {
+      throw new NotificationError(this.notification.getErrors());
+    }
   }
 
   changePrice(price: number): void {
     this._price = price;
     this.validate();
+
+    if (this.notification.hasErrors()) {
+      throw new NotificationError(this.notification.getErrors());
+    }
   }
 
   validate(): boolean {
+    console.log('this._name')
+    console.log(this._name);
+    console.log('this._name 2')
     if (this._id.length === 0) {
       this.notification.addError({
         context: 'product',

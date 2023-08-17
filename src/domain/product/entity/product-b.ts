@@ -8,6 +8,7 @@ export default class ProductB extends Entity implements ProductInterface {
 
   constructor(id: string, name: string, price: number) {
     super();
+    this._id = id;
     this._name = name;
     this._price = price;
     this.validate();
@@ -15,10 +16,6 @@ export default class ProductB extends Entity implements ProductInterface {
     if (this.notification.hasErrors()) {
       throw new NotificationError(this.notification.getErrors());
     }
-  }
-
-  get id(): string {
-    return this._id;
   }
   
   get name(): string {
@@ -32,15 +29,23 @@ export default class ProductB extends Entity implements ProductInterface {
   changeName(name: string): void {
     this._name = name;
     this.validate();
+
+    if (this.notification.hasErrors()) {
+      throw new NotificationError(this.notification.getErrors());
+    }
   }
 
   changePrice(price: number): void {
     this._price = price;
     this.validate();
+
+    if (this.notification.hasErrors()) {
+      throw new NotificationError(this.notification.getErrors());
+    }
   }
 
   validate(): boolean {
-    if (this._id.length === 0) {
+    if (this.id.length === 0) {
       this.notification.addError({
         context: 'productb',
         message: 'Id is required'

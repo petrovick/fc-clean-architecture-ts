@@ -59,7 +59,7 @@ describe("Unit test update product use case", () => {
         input.name = "";
 
         await expect(updateProductUseCase.execute(input)).rejects.toThrow(
-        "Name is required"
+        "product: Name is required"
         );
     });
 });
